@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class CarService {
@@ -14,20 +14,16 @@ public class CarService {
     @Autowired
     private CarRepository carRepository;
 
-
-    public Optional<Car> findCarByChassi(String id) {
-
-        Optional<Car> car = carRepository.findById(id);
-        return car;
-    }
-
     public void saveCar(Car carro) {
         carRepository.save(carro);
     }
 
-    public Optional<List<Car>> findAllCars(){
-        Optional<List<Car>> cars = Optional.of(carRepository.findAll());
+    public List<Car> findAllCars(){
+        List<Car>cars = carRepository.findCarList();
         return cars;
     }
+
+
+
 
 }
