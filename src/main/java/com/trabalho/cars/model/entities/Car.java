@@ -11,11 +11,15 @@ public class Car {
     @Id
     @Column(name = "chassi", nullable = false, length = 20)
     private String chassi;
-
+    @Column(name = "name", nullable = false, length = 20)
     private String name;
+    @Column(name = "brand", nullable = false, length = 20)
     private String brand;
+    @Column(name = "color", nullable = false, length = 20)
     private String color;
+    @Column(name = "value", nullable = false, length = 20)
     private BigDecimal value;
+    @Column(name = "agefab", nullable = false, length = 20)
     private Integer ageFab;
 
     public Car(){
@@ -29,6 +33,13 @@ public class Car {
         this.color = color;
         this.value = value;
         this.ageFab = ageFab;
+    }
+
+    public Car(Car carForm) {
+        carForm.chassi = this.chassi;
+        carForm.name = this.name;
+        carForm.brand = this.brand;
+        carForm.color = this.color;
     }
 
     public String getName() {

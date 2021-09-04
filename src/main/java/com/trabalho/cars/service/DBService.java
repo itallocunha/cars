@@ -3,11 +3,13 @@ package com.trabalho.cars.service;
 import com.trabalho.cars.model.entities.Car;
 import com.trabalho.cars.model.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Arrays;
 
+@Service
 public class DBService {
 
     @Autowired

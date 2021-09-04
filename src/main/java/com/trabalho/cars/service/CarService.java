@@ -24,6 +24,55 @@ public class CarService {
     }
 
 
+    public List<Car> findAllCarsByBrand(String brand) {
+
+        List<Car>cars = carRepository.findAllCarsByBrand(brand);
+
+        return cars;
+    }
+
+    public List<Car> findAllCarsByName(String name) {
+
+        List<Car>cars = carRepository.findAllCarsByName(name);
+        return cars;
+    }
+
+    public List<Car> findAllCarsByColor(String Color) {
+
+        List<Car>cars = carRepository.findAllCarsByColor(Color);
+
+        return cars;
+    }
+
+    public List<Car> findAllCarsOrderByLetter() {
+        List<Car>cars = carRepository.findAllCarsOrderByLetter();
+
+        return cars;
+    }
 
 
+    public List<Car> findAllCarsOrderByValue() {
+        List<Car>cars = carRepository.findAllCarsOrderByValue();
+
+        return cars;
+    }
+
+    public void deleteAllCars() {
+        carRepository.deleteAll();
+    }
+
+    public Car createNewCar(Car carForm) {
+        Car newCar = new Car(carForm);
+
+        carRepository.save(newCar);
+        return newCar;
+    }
+
+
+    public List<Car> findAllCarsOrderByAgefab() {
+        List<Car>cars = carRepository.findAllCarsOrderByAgefab();
+
+        return cars;
+
+    }
 }
