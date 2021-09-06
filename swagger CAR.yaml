@@ -1,0 +1,995 @@
+swagger: '2.0'
+info:
+  description: Api Documentation
+  version: '1.0'
+  title: Api Documentation
+  termsOfService: urn:tos
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+host: localhost:8080
+basePath: /
+tags:
+  - name: Car Entity
+    description: Simple Jpa Repository
+  - name: basic-error-controller
+    description: Basic Error Controller
+  - name: main-controller
+    description: main Controller
+  - name: profile-controller
+    description: Profile Controller
+paths:
+  /api/cars/:
+    get:
+      tags:
+        - main-controller
+      summary: Retorna uma lista de carro
+      operationId: listAllCarsUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Car'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - main-controller
+      summary: Salva um carro
+      operationId: postNewCarUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: carForm
+          description: carForm
+          required: true
+          schema:
+            $ref: '#/definitions/Car'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Car'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - main-controller
+      summary: Deleta tudo
+      operationId: deleteAllCarsUsingDELETE
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Car'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/cars/brand/{brand}:
+    get:
+      tags:
+        - main-controller
+      summary: Retorna uma lista de marca
+      operationId: listAllCarsByBrandUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: brand
+          in: path
+          description: brand
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Car'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/cars/color/{color}:
+    get:
+      tags:
+        - main-controller
+      summary: Retorna uma lista de cor
+      operationId: listAllCarsByColorUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: color
+          in: path
+          description: color
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Car'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/cars/name/{name}:
+    get:
+      tags:
+        - main-controller
+      summary: Retorna uma lista de nome
+      operationId: listAllCarsByNameUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: name
+          in: path
+          description: name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Car'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/cars/orderbyname:
+    get:
+      tags:
+        - main-controller
+      summary: Retorna uma ordenacao de nome
+      operationId: findAllCarsOrderByLetterUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Car'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/cars/orderbyvalue:
+    get:
+      tags:
+        - main-controller
+      summary: Retorna uma ordenacao de valor
+      operationId: findAllCarsOrderByValueUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Car'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/cars/orderbyyearfab:
+    get:
+      tags:
+        - main-controller
+      summary: Retorna uma ordenacao de ano de fabricacao
+      operationId: findAllCarsOrderByAgefabUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Car'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /cars:
+    get:
+      tags:
+        - Car Entity
+      summary: findAllCar
+      operationId: findAllCarUsingGET
+      produces:
+        - application/hal+json
+        - application/json
+        - application/x-spring-data-compact+json
+        - text/uri-list
+      parameters:
+        - name: page
+          in: query
+          description: page
+          required: false
+          type: integer
+          format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          type: integer
+          format: int32
+        - name: sort
+          in: query
+          description: sort
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CollectionModel«Car»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - Car Entity
+      summary: saveCar
+      operationId: saveCarUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: body
+          description: body
+          required: true
+          schema:
+            $ref: '#/definitions/Car'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EntityModel«Car»'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /cars/search/findAllCarsByBrand:
+    get:
+      tags:
+        - Car Entity
+      summary: findAllCarsByBrandCar
+      operationId: findAllCarsByBrandCarUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: receivbrand
+          in: query
+          description: receivbrand
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CollectionModel«Car»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /cars/search/findAllCarsByColor:
+    get:
+      tags:
+        - Car Entity
+      summary: findAllCarsByColorCar
+      operationId: findAllCarsByColorCarUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: receivcolor
+          in: query
+          description: receivcolor
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CollectionModel«Car»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /cars/search/findAllCarsByName:
+    get:
+      tags:
+        - Car Entity
+      summary: findAllCarsByNameCar
+      operationId: findAllCarsByNameCarUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: receivname
+          in: query
+          description: receivname
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CollectionModel«Car»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /cars/search/findAllCarsOrderByAgefab:
+    get:
+      tags:
+        - Car Entity
+      summary: findAllCarsOrderByAgefabCar
+      operationId: findAllCarsOrderByAgefabCarUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CollectionModel«Car»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /cars/search/findAllCarsOrderByLetter:
+    get:
+      tags:
+        - Car Entity
+      summary: findAllCarsOrderByLetterCar
+      operationId: findAllCarsOrderByLetterCarUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CollectionModel«Car»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /cars/search/findAllCarsOrderByValue:
+    get:
+      tags:
+        - Car Entity
+      summary: findAllCarsOrderByValueCar
+      operationId: findAllCarsOrderByValueCarUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CollectionModel«Car»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /cars/search/findCarList:
+    get:
+      tags:
+        - Car Entity
+      summary: findCarListCar
+      operationId: findCarListCarUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CollectionModel«Car»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /cars/{id}:
+    get:
+      tags:
+        - Car Entity
+      summary: findByIdCar
+      operationId: findByIdCarUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EntityModel«Car»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Car Entity
+      summary: saveCar
+      operationId: saveCarUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: body
+          description: body
+          required: true
+          schema:
+            $ref: '#/definitions/Car'
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EntityModel«Car»'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Car Entity
+      summary: deleteCar
+      operationId: deleteCarUsingDELETE
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - Car Entity
+      summary: saveCar
+      operationId: saveCarUsingPATCH
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: body
+          description: body
+          required: true
+          schema:
+            $ref: '#/definitions/Car'
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EntityModel«Car»'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /error:
+    get:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    head:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingHEAD
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    post:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingDELETE
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    options:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingOPTIONS
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - basic-error-controller
+      summary: error
+      operationId: errorUsingPATCH
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /profile:
+    get:
+      tags:
+        - profile-controller
+      summary: listAllFormsOfMetadata
+      operationId: listAllFormsOfMetadataUsingGET
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/RepresentationModel«object»'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    options:
+      tags:
+        - profile-controller
+      summary: profileOptions
+      operationId: profileOptionsUsingOPTIONS
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+definitions:
+  Car:
+    type: object
+    properties:
+      ageFab:
+        type: integer
+        format: int32
+      brand:
+        type: string
+      chassi:
+        type: string
+      color:
+        type: string
+      name:
+        type: string
+      value:
+        type: number
+    title: Car
+  CollectionModel«Car»:
+    type: object
+    required:
+      - _embedded
+      - _links
+    properties:
+      _embedded:
+        $ref: '#/definitions/EmbeddedCollection«Car»'
+      _links:
+        type: object
+        description: Link collection
+        additionalProperties:
+          $ref: '#/definitions/Link'
+    title: CollectionModel«Car»
+    xml:
+      name: entities
+      attribute: false
+      wrapped: false
+    description: Resources of Car
+  EmbeddedCollection«Car»:
+    type: object
+    required:
+      - cars
+    properties:
+      cars:
+        type: array
+        description: Resource collection
+        items:
+          $ref: '#/definitions/Car'
+    title: EmbeddedCollection«Car»
+    xml:
+      name: content
+      wrapped: true
+    description: Embedded collection of Car
+  EntityModel«Car»:
+    type: object
+    properties:
+      ageFab:
+        type: integer
+        format: int32
+      brand:
+        type: string
+      chassi:
+        type: string
+      color:
+        type: string
+      links:
+        $ref: '#/definitions/Links'
+      name:
+        type: string
+      value:
+        type: number
+    title: EntityModel«Car»
+  Link:
+    type: object
+    properties:
+      deprecation:
+        type: string
+      href:
+        type: string
+      hreflang:
+        type: string
+      media:
+        type: string
+      name:
+        type: string
+      profile:
+        type: string
+      rel:
+        $ref: '#/definitions/LinkRelation'
+      title:
+        type: string
+      type:
+        type: string
+    title: Link
+  LinkRelation:
+    type: object
+    title: LinkRelation
+  Links:
+    type: object
+    properties:
+      empty:
+        type: boolean
+    title: Links
+  ModelAndView:
+    type: object
+    properties:
+      empty:
+        type: boolean
+      model:
+        type: object
+      modelMap:
+        type: object
+        additionalProperties:
+          type: object
+      reference:
+        type: boolean
+      status:
+        type: string
+        enum:
+          - ACCEPTED
+          - ALREADY_REPORTED
+          - BAD_GATEWAY
+          - BAD_REQUEST
+          - BANDWIDTH_LIMIT_EXCEEDED
+          - CHECKPOINT
+          - CONFLICT
+          - CONTINUE
+          - CREATED
+          - DESTINATION_LOCKED
+          - EXPECTATION_FAILED
+          - FAILED_DEPENDENCY
+          - FORBIDDEN
+          - FOUND
+          - GATEWAY_TIMEOUT
+          - GONE
+          - HTTP_VERSION_NOT_SUPPORTED
+          - IM_USED
+          - INSUFFICIENT_SPACE_ON_RESOURCE
+          - INSUFFICIENT_STORAGE
+          - INTERNAL_SERVER_ERROR
+          - I_AM_A_TEAPOT
+          - LENGTH_REQUIRED
+          - LOCKED
+          - LOOP_DETECTED
+          - METHOD_FAILURE
+          - METHOD_NOT_ALLOWED
+          - MOVED_PERMANENTLY
+          - MOVED_TEMPORARILY
+          - MULTIPLE_CHOICES
+          - MULTI_STATUS
+          - NETWORK_AUTHENTICATION_REQUIRED
+          - NON_AUTHORITATIVE_INFORMATION
+          - NOT_ACCEPTABLE
+          - NOT_EXTENDED
+          - NOT_FOUND
+          - NOT_IMPLEMENTED
+          - NOT_MODIFIED
+          - NO_CONTENT
+          - OK
+          - PARTIAL_CONTENT
+          - PAYLOAD_TOO_LARGE
+          - PAYMENT_REQUIRED
+          - PERMANENT_REDIRECT
+          - PRECONDITION_FAILED
+          - PRECONDITION_REQUIRED
+          - PROCESSING
+          - PROXY_AUTHENTICATION_REQUIRED
+          - REQUESTED_RANGE_NOT_SATISFIABLE
+          - REQUEST_ENTITY_TOO_LARGE
+          - REQUEST_HEADER_FIELDS_TOO_LARGE
+          - REQUEST_TIMEOUT
+          - REQUEST_URI_TOO_LONG
+          - RESET_CONTENT
+          - SEE_OTHER
+          - SERVICE_UNAVAILABLE
+          - SWITCHING_PROTOCOLS
+          - TEMPORARY_REDIRECT
+          - TOO_EARLY
+          - TOO_MANY_REQUESTS
+          - UNAUTHORIZED
+          - UNAVAILABLE_FOR_LEGAL_REASONS
+          - UNPROCESSABLE_ENTITY
+          - UNSUPPORTED_MEDIA_TYPE
+          - UPGRADE_REQUIRED
+          - URI_TOO_LONG
+          - USE_PROXY
+          - VARIANT_ALSO_NEGOTIATES
+      view:
+        $ref: '#/definitions/View'
+      viewName:
+        type: string
+    title: ModelAndView
+  RepresentationModel«object»:
+    type: object
+    properties:
+      links:
+        $ref: '#/definitions/Links'
+    title: RepresentationModel«object»
+  TemplateVariable:
+    type: object
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+        enum:
+          - COMPOSITE_PARAM
+          - FRAGMENT
+          - PATH_VARIABLE
+          - REQUEST_PARAM
+          - REQUEST_PARAM_CONTINUED
+          - SEGMENT
+    title: TemplateVariable
+  UriTemplate:
+    type: object
+    properties:
+      variableNames:
+        type: array
+        items:
+          type: string
+      variables:
+        type: array
+        items:
+          $ref: '#/definitions/TemplateVariable'
+    title: UriTemplate
+  View:
+    type: object
+    properties:
+      contentType:
+        type: string
+    title: View
